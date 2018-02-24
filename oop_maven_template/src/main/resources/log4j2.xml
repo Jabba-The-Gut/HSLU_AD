@@ -3,7 +3,7 @@
 
    <Appenders>
       <Console name="Console" target="SYSTEM_OUT">
-         <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss} %-5p]- %m%n" />
+         <PatternLayout pattern="%style{%d{DEFAULT}}{White} %highlight{%-5level} - %msg%n" />
       </Console>
    </Appenders>
 
