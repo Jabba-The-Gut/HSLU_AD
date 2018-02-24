@@ -18,5 +18,4 @@ public class MemoryDemo {
 		LOG.info(memory);
 		memory.free(block1);
 	}
-
 }

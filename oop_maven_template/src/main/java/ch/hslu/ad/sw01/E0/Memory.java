@@ -5,5 +5,4 @@ public interface Memory {
 	public Allocation malloc (final int size);
 	
 	public void free (Allocation alloc);
-	
 }
