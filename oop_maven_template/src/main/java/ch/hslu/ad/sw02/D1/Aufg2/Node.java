@@ -1,6 +1,14 @@
-package ch.hslu.ad.sw02.D1;
+package ch.hslu.ad.sw02.D1.Aufg2;
 
 import java.util.Objects;
+
+/**
+ * Class that represents a node inside a LinkedList. Each Node has a "data"
+ * attribute (Allocation object) and a "next" attribute (next Node in LinkedList)
+ * 
+ * @author Dave
+ *
+ */
 
 public class Node {
 	private Allocation data;
@@ -16,10 +24,19 @@ public class Node {
 		this.data = alloc;
 	}
 
+	/**
+	 * Returns next Node
+	 * 
+	 * @return Node
+	 */
 	public Node getNextNode() {
 		return this.next;
 	}
 
+	/**
+	 * Sets next attribute of current Node
+	 * @param n
+	 */
 	public void setNextNode(Node n) {
 		this.next = n;
 	}
@@ -44,7 +61,7 @@ public class Node {
 
 	@Override
 	public String toString() {
-		return "HashCode:" + this.hashCode();
+		return "HashCode:" + this.hashCode() + " | Data: " + data.toString();
 	}
 
 }

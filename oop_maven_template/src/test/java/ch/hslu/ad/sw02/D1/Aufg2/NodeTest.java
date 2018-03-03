@@ -1,11 +1,14 @@
 /**
  * 
  */
-package ch.hslu.ad.sw02.D1;
+package ch.hslu.ad.sw02.D1.Aufg2;
 
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
+import ch.hslu.ad.sw02.D1.Aufg2.Allocation;
+import ch.hslu.ad.sw02.D1.Aufg2.Node;
 
 /**
  * @author jabbathegut
@@ -14,14 +17,14 @@ import org.junit.Test;
 public class NodeTest {
 
 	@Test
-	public void testNode(){
+	public void testNode() {
 		Allocation alloc = new Allocation(0, 16);
 		Node node1 = new Node(alloc);
 		assertTrue(node1.getNextNode() == null);
 	}
 
 	@Test
-	public void testSetNextNode(){
+	public void testSetNextNode() {
 		Allocation alloc1 = new Allocation(0, 16);
 		Allocation alloc2 = new Allocation(16, 2);
 		Node node1 = new Node(alloc1);
@@ -31,7 +34,7 @@ public class NodeTest {
 	}
 
 	@Test
-	public void testEqualsTrue(){
+	public void testEqualsTrue() {
 		Allocation alloc1 = new Allocation(0, 16);
 		Node node1 = new Node(alloc1);
 		Node node2 = node1;

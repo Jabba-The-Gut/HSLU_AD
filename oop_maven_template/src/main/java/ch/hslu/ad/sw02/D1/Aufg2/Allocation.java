@@ -1,4 +1,4 @@
-package ch.hslu.ad.sw02.D1;
+package ch.hslu.ad.sw02.D1.Aufg2;
 
 import java.util.Objects;
 
@@ -22,7 +22,7 @@ public final class Allocation implements Comparable<Allocation> {
 
 	@Override
 	public String toString() {
-		return "Allocation[Address: " + this.getAddress() + "; Size: " + this.getSize() + "]";
+		return "Allocation [Address: " + this.getAddress() + "; Size: " + this.getSize() + "]";
 	}
 
 	/**
