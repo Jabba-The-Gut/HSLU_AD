@@ -34,13 +34,16 @@ public final class Allocation implements Comparable<Allocation> {
 	}
 
 	/**
-	 * Zwei Allocation-Objekte sind gleich, wenn sie von der selben Klasse und die
-	 * selbe Adresse haben
+	 * Zwei Allocation-Objekte sind gleich, wenn sie die selben Objekte sind oder
+	 * wenn sie von der selben Klasse sind und die selbe Adresse haben
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		final Allocation alloc = (Allocation) obj;
+		if (obj == this) {
+			return true;
+		}
 		if (obj instanceof Allocation) {
+			final Allocation alloc = (Allocation) obj;
 			if (alloc.getAddress() == this.getAddress()) {
 				return true;
 			} else {
