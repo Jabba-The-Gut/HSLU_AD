@@ -17,19 +17,20 @@ public class BinaryTreeTest {
 	 */
 	@Test
 	public void testBinaryTree(){
-		BinaryTree tree = new BinaryTree();
-		tree.insert(1);
-		Assert.assertTrue(tree.getSize() == 1);
+
 	}
 
-	/**
-	 * Test method for {@link ch.hslu.ad.sw03.D2.Aufg5.BinaryTree#getRoot()}.
-	 */
 	@Test
-	public void testGetRoot(){
+	public void testContainsTrue(){
 		BinaryTree tree = new BinaryTree();
-		tree.insert(3);
-		Assert.assertTrue(tree.getRoot().getValue() == 3);
+		boolean contains = tree.contains(9);
+		Assert.assertTrue(contains);
 	}
-
+	
+	@Test
+	public void testContainsFalse(){
+		BinaryTree tree = new BinaryTree();
+		boolean contains = tree.contains(13);
+		Assert.assertFalse(contains);
+	}
 }

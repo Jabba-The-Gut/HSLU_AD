@@ -40,6 +40,13 @@ public class Node implements Comparable<Node> {
 		return this.right;
 	}
 	
+	public Node subNode(int value) {
+		if(value < this.value) {
+			return this.left;
+		} else {
+			return this.right;
+		}
+	}
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -67,6 +74,12 @@ public class Node implements Comparable<Node> {
 		}
 	}
 
+	@Override
+	public String toString() {
+		
+	}
+
+	
 
 	
 }
