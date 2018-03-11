@@ -1,4 +1,4 @@
-package ch.hslu.ad.sw03.D2.Aufg5;
+package ch.hslu.ad.sw03.D2.Aufg6;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
  * @author jabbathegut
  *
  */
-public class BinaryTree implements Tree<Integer> {
+public class BinaryTree implements Tree<Allocation> {
 
 	private static final Logger LOG = LogManager.getLogger(BinaryTree.class);
 
@@ -30,7 +30,7 @@ public class BinaryTree implements Tree<Integer> {
 	}
 
 	@Override
-	public boolean insert(Integer o) {
+	public boolean insert(Allocation o) {
 		if (!this.contains(o)) {
 			// Wenn der Baum leer ist, dann wird die Wurzel gesetzt
 			if (this.root == null) {
@@ -67,14 +67,14 @@ public class BinaryTree implements Tree<Integer> {
 	 * ihn zurueck. Funktioniert also nicht wirklich --> so gewollt.
 	 */
 	@Override
-	public boolean remove(Integer o) {
+	public boolean remove(Allocation o) {
 		this.root = null;
 		this.size = 0;
 		return true;
 	}
 
 	@Override
-	public boolean contains(Integer o) {
+	public boolean contains(Allocation o) {
 		// Leerer Baum enthaeelt nichts
 		if (this.size == 0) {
 			return false;

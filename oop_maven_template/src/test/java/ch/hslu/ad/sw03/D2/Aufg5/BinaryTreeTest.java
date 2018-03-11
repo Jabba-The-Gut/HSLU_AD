@@ -17,20 +17,51 @@ public class BinaryTreeTest {
 	 */
 	@Test
 	public void testBinaryTree(){
-
+		BinaryTree tree = new BinaryTree();
+		tree.insert(5);
+		tree.insert(3);
+		tree.insert(6);
+		tree.insert(10);
+		tree.insert(2);
+		tree.insert(4);
+		tree.insert(9);
+		Assert.assertTrue(tree.getSize() == 7);
 	}
 
 	@Test
 	public void testContainsTrue(){
 		BinaryTree tree = new BinaryTree();
-		boolean contains = tree.contains(9);
-		Assert.assertTrue(contains);
+		tree.insert(5);
+		tree.insert(3);
+		tree.insert(6);
+		tree.insert(10);
+		tree.insert(2);
+		tree.insert(4);
+		tree.insert(9);
+		Assert.assertTrue(tree.contains(6));
 	}
 	
 	@Test
 	public void testContainsFalse(){
 		BinaryTree tree = new BinaryTree();
-		boolean contains = tree.contains(13);
-		Assert.assertFalse(contains);
+		tree.insert(5);
+		tree.insert(3);
+		tree.insert(6);
+		tree.insert(10);
+		tree.insert(2);
+		tree.insert(4);
+		tree.insert(9);
+		Assert.assertTrue(!tree.contains(1));
 	}
+	
+	@Test
+	public void testContainsRoot(){
+		BinaryTree tree = new BinaryTree();
+		tree.insert(5);
+		Assert.assertTrue(tree.contains(5));
+	}
+
+
+	
+	
 }

@@ -1,4 +1,4 @@
-package ch.hslu.ad.sw03.D2.Aufg5;
+package ch.hslu.ad.sw03.D2.Aufg6;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,13 +10,12 @@ public class Main {
 	public static void main(String[] args) {
 
 		BinaryTree tree = new BinaryTree();
-		tree.insert(5);
-		tree.insert(3);
-		tree.insert(6);
-		tree.insert(10);
-		tree.insert(2);
-		tree.insert(4);
-		tree.insert(9);
+		tree.insert(new Allocation(2, 5));
+		tree.insert(new Allocation(7, 3));
+		tree.insert(new Allocation(10, 6));
+		tree.insert(new Allocation(16,10));
+		tree.insert(new Allocation(18,2));
+		tree.insert(new Allocation(22,4));
 
 		tree.inOrderRek(tree.getRoot());
 		LOG.info("---");

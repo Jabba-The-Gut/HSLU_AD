@@ -1,7 +1,11 @@
-package ch.hslu.ad.sw03.D2.Aufg5;
+package ch.hslu.ad.sw03.D2.Aufg6;
+
+import java.util.Objects;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+
 
 /**
  * Stellt die Implementation der einzelnen Knoten im binären Suchbaum dar.
@@ -12,40 +16,46 @@ import org.apache.logging.log4j.Logger;
 public class Node implements Comparable<Node> {
 	private static final Logger LOG = LogManager.getLogger(Node.class);
 
-	private int value;
+	private Allocation value;
+	private int hash;
 	private Node left;
 	private Node right;
 
-	public Node(int value) {
-		this.value = value;
+	public Node(Allocation alloc) {
+		this.value = alloc;
+		this.hash = this.hashCode();
 	}
 
-	public Node(int value, Node left, Node right) {
+	public Node(Allocation alloc, Node left, Node right) {
 		new Node(value);
 		this.left = left;
 		this.right = right;
 	}
 
-	public void setValue(int value) {
+	public Integer getHash() {
+		return this.hash;
+	}
+
+	public void setAlloc(Allocation alloc) {
 		this.value = value;
 	}
 
-	public Integer getValue() {
+	public Allocation getValue() {
 		return this.value;
 	}
 
 	/**
-	 * Fuegt einen neuen Kind-Knoten ein. Falls der Wert groesser ist, dann rechts,
-	 * falls der Wert kleiner ist, dann links.
+	 * Fuegt einen neuen Kind-Knoten ein. Falls der Wert (Speichergroesse) groesser
+	 * ist, dann rechts, falls der Wert kleiner ist, dann links.
 	 * 
 	 * @param value
-	 *            Wert des Kind-Knotens
+	 *            Speichergroesse Allocation
 	 */
-	public void addSubnode(int value) {
-		if (value < this.value) {
-			this.setLeft(new Node(value));
+	public void addSubnode(Allocation alloc) {
+		if (alloc.getSize() < this.value.getSize()) {
+			this.setLeft(new Node(alloc));
 		} else {
-			this.setRight(new Node(value));
+			this.setRight(new Node(alloc));
 		}
 	}
 
@@ -63,11 +73,11 @@ public class Node implements Comparable<Node> {
 	 * bei der Suche gebraucht
 	 * 
 	 * @param value
-	 *            Wert
+	 *            Speichergroesse der Allokation
 	 * @return Kind-Knoten
 	 */
-	public Node subNode(int value) {
-		if (value < this.value) {
+	public Node subNode(Allocation alloc) {
+		if (alloc.getSize() < this.value.getSize()) {
 			return this.left;
 		} else {
 			return this.right;
@@ -88,7 +98,7 @@ public class Node implements Comparable<Node> {
 			return true;
 		} else if (obj instanceof Node) {
 			Node node = (Node) obj;
-			if (node.getValue() == this.value) {
+			if (node.getValue().equals(obj)) {
 				return true;
 			} else {
 				return false;
@@ -101,7 +111,7 @@ public class Node implements Comparable<Node> {
 	public int compareTo(Node node) {
 		if (this.equals(node)) {
 			return 0;
-		} else if (this.getValue() > node.getValue()) {
+		} else if (this.getValue().getSize() > node.getValue().getSize()) {
 			return 1;
 		} else {
 			return -1;
@@ -112,4 +122,10 @@ public class Node implements Comparable<Node> {
 	public String toString() {
 		return "Knoten mit Wert: " + this.value;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.value);
+	}
+
 }
