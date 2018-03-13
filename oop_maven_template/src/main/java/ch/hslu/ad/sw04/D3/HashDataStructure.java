@@ -4,6 +4,8 @@ public interface HashDataStructure<T> {
 
 	public void add(T element);
 
-	public void get(T element);
+	public T get(T element);
+	
+	public boolean remove(T element);
 
 }

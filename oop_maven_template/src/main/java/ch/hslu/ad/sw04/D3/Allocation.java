@@ -20,7 +20,7 @@ public final class Allocation {
 
 	@Override
 	public String toString() {
-		return "Allocation[Address: " + this.getAddress() + "; Size: " + this.getSize() + "]";
+		return "Allocation [Address: " + this.getAddress() + "; Size: " + this.getSize() + "]";
 	}
 
 	/**
