@@ -1,4 +1,4 @@
-package ch.hslu.ad.sw04.D3;
+package ch.hslu.ad.sw04.D3.Aufg1;
 
 public interface HashDataStructure<T> {
 

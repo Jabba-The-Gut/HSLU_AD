@@ -1,9 +1,15 @@
-package ch.hslu.ad.sw04.D3;
-
-import javax.sound.sampled.Line;
+package ch.hslu.ad.sw04.D3.Aufg1;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+/**
+ * Eigene Implementation eines HashTables. So implementiert, dass er nicht mit
+ * Kollisionen beim selben Index umgehen kann!
+ * 
+ * @author jabbathegut
+ *
+ */
 
 public class CustomHashTable implements HashDataStructure<Allocation> {
 	private Allocation[] store;
@@ -28,6 +34,16 @@ public class CustomHashTable implements HashDataStructure<Allocation> {
 
 	}
 
+	/**
+	 * Berechnet den Index fuer das einzufuegende Element, in dem der Hash des
+	 * Elements verteilt an die Groesse der Datenstruktur gerechnet wird -->
+	 * eindeutiger Index wenn nicht zweimal ein Element mit gleichem Hash eingefuegt
+	 * wird
+	 * 
+	 * @param alloc
+	 *            Objekt dass eingefuegt werden soll
+	 * @return Index des alloc-Objekts basierend auf dem Hash
+	 */
 	private int generateIndexFromHash(Allocation alloc) {
 		return (alloc.hashCode() % store.length);
 	}
@@ -46,12 +62,11 @@ public class CustomHashTable implements HashDataStructure<Allocation> {
 
 	@Override
 	public boolean remove(Allocation element) {
-		if(this.get(element) == null) {
+		if (this.get(element) == null) {
 			return false;
 		} else {
 			store[this.generateIndexFromHash(element)] = null;
 			return true;
 		}
 	}
-
 }

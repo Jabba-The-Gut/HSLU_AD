@@ -1,4 +1,4 @@
-package ch.hslu.ad.sw04.D3;
+package ch.hslu.ad.sw04.D3.Aufg1;
 
 public final class Allocation {
 
@@ -33,7 +33,7 @@ public final class Allocation {
 
 	/**
 	 * Zwei Allocation-Objekte sind gleich, wenn sie die selben Objekte sind oder
-	 * wenn sie von der selben Klasse sind und die selbe Adresse haben
+	 * wenn sie vom selben Typ sind und die selbe Adresse haben
 	 */
 	@Override
 	public boolean equals(Object obj) {
