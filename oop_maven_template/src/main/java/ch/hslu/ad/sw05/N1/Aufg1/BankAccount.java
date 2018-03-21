@@ -24,7 +24,7 @@ public final class BankAccount {
 	}
 
 	/**
-	 * Gibt den aktuellen Kontostand zurück.
+	 * Gibt den aktuellen Kontostand zurück.
 	 * 
 	 * @return Kontostand.
 	 */
@@ -39,19 +39,29 @@ public final class BankAccount {
 	 *            Einzuzahlender Betrag
 	 */
 	public void deposite(final int amount) {
-		this.balance += amount;
+		synchronized (this) {
+			this.balance += amount;
+		}
 	}
 
 	/**
 	 * Überweist einen Betrag vom aktuellen Bankkonto an ein Ziel-Bankkonto.
 	 * 
 	 * @param target
-	 *            Bankkonto auf welches der Betrag überwiesen wird.
+	 *            Bankkonto auf welches der Betrag überwiesen wird.
 	 * @param amount
-	 *            zu überweisender Betrag.
+	 *            zu überweisender Betrag.
 	 */
 	public void transfer(final BankAccount target, final int amount) {
-		this.balance -= amount;
+		synchronized (this) {
+			this.balance -= amount;
+		}
 		target.deposite(amount);
 	}
+
+	@Override
+	public String toString() {
+		return ("Konto: " + this.hashCode() + " , Kontostand: " + this.getBalance());
+	}
+
 }
