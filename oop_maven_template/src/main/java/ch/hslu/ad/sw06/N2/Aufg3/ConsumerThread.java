@@ -9,7 +9,7 @@ public class ConsumerThread implements Runnable {
 	private static final Logger LOG = LogManager.getLogger(ConsumerThread.class);
 	private final Random random;
 	private final BoundedBuffer<Integer> buffer;
-	
+
 	public ConsumerThread(final BoundedBuffer<Integer> buffer) {
 		this.buffer = buffer;
 		this.random = new Random();
@@ -17,15 +17,14 @@ public class ConsumerThread implements Runnable {
 
 	@Override
 	public void run() {
-		for (int i = 0; i < random.nextInt(3); i++ ) {
+		while (true) {
 			try {
 				int value = buffer.get();
-				LOG.info("Got " + value);
 			} catch (InterruptedException e) {
 				LOG.error(e);
 			}
 		}
-		
+
 	}
 
 }

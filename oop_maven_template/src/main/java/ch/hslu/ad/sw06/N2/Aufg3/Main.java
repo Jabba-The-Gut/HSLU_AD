@@ -7,22 +7,21 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Main {
-	private static final Logger LOG = LogManager.getLogger(Main.class);
 	private static List<Thread> consumerThreads;
 	private static List<Thread> producerThreads;
-	private final static BoundedBuffer<Integer> buffer = new BoundedBuffer<>(2);
+	private final static BoundedBuffer<Integer> buffer = new BoundedBuffer<>(5);
 
 	public static void main(String[] args) {
 		consumerThreads = new ArrayList<>();
 		producerThreads = new ArrayList<>();
 
 		// Arbeiter- bzw. Produzenten-Threads erstellen
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 2; i++) {
 			producerThreads.add(new Thread(new WorkerThread(buffer)));
 		}
 
 		// Konsumenten-Threads erstellen
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 3; i++) {
 			consumerThreads.add(new Thread(new ConsumerThread(buffer)));
 		}
 

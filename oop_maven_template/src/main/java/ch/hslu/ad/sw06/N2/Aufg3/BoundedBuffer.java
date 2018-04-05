@@ -1,51 +1,43 @@
 package ch.hslu.ad.sw06.N2.Aufg3;
 
 import java.util.ArrayDeque;
+import java.util.concurrent.Semaphore;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class BoundedBuffer<T> {
+	private static final Logger LOG = LogManager.getLogger(BoundedBuffer.class);
 	private final ArrayDeque<T> data;
 	private final int size;
+	private final Semaphore putSemaphore;
+	private final Semaphore takeSemaphore;
 
 	public BoundedBuffer(int size) {
-		this.data = new ArrayDeque<>();
+		this.data = new ArrayDeque<>(size);
 		this.size = size;
+		this.putSemaphore = new Semaphore(this.size, true);
+		this.takeSemaphore = new Semaphore(0, true);
 	}
 
-	public synchronized void put(T element) throws InterruptedException {
-		if (data.size() == this.size) {
-			this.wait();
+	public void put(final T element) throws InterruptedException {
+		putSemaphore.acquire();
+		synchronized (data) {
+			data.addFirst(element);
+			LOG.info("Put: " + element);
 		}
-
-		data.addFirst(element);
-		if (data.size() == 1) {
-			this.notifyAll();
-		}
+		takeSemaphore.release();
 	}
 
-	public synchronized boolean put(T element, long millisec) throws InterruptedException {
-		if (data.size() == this.size) {
-			this.wait(millisec);
-			if (data.size() == this.size) {
-				return false;
-			}
+	public T get() throws InterruptedException {
+		takeSemaphore.acquire();
+		T element;
+		synchronized (data) {
+			element = data.removeLast();
+			LOG.info("Got: " + element);
 		}
-
-		data.addFirst(element);
-		if (data.size() == 1) {
-			this.notifyAll();
-		}
-		return true;
-	}
-
-	public synchronized T get() throws InterruptedException {
-		if (data.isEmpty()) {
-			this.wait();
-		}
-
-		if (data.size() == (this.size - 1)) {
-			this.notifyAll();
-		}
-		return data.removeLast();
+		putSemaphore.release();
+		return element;
 	}
 
 	public boolean empty() {

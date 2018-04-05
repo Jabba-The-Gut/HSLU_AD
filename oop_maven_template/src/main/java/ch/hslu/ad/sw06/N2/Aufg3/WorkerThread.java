@@ -10,7 +10,6 @@ public class WorkerThread implements Runnable {
 	private final Random random;
 	private final BoundedBuffer<Integer> buffer;
 
-	
 	public WorkerThread(final BoundedBuffer<Integer> buffer) {
 		this.buffer = buffer;
 		this.random = new Random();
@@ -18,16 +17,15 @@ public class WorkerThread implements Runnable {
 
 	@Override
 	public void run() {
-		for (int i = 0; i < random.nextInt(5); i++ ) {
+		for (int i = 0; i < random.nextInt(5); i++) {
 			try {
 				int value = random.nextInt(100);
 				buffer.put(value);
-				LOG.info("Put: " + value);
 			} catch (InterruptedException e) {
 				LOG.error(e);
 			}
 		}
-		
+
 	}
 
 }
