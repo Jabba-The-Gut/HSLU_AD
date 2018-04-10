@@ -1,55 +1,109 @@
+/*
+ * Copyright 2018 Hochschule Luzern - Informatik.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package ch.hslu.ad.sw06.N2.Aufg3;
 
 import java.util.ArrayDeque;
 import java.util.concurrent.Semaphore;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+/**
+ * Puffer nach dem First In First Out Prinzip mit einer begrenzten Kapazität.
+ * Der Puffer ist thread sicher.
+ * 
+ * @param <T>
+ *            Elememente des Buffers
+ */
+public final class BoundedBuffer<T> {
 
-public class BoundedBuffer<T> {
-	private static final Logger LOG = LogManager.getLogger(BoundedBuffer.class);
-	private final ArrayDeque<T> data;
+	private final ArrayDeque<T> queue;
 	private final int size;
-	private final Semaphore putSemaphore;
-	private final Semaphore takeSemaphore;
+	private final Semaphore putSema;
+	private final Semaphore takeSema;
 
-	public BoundedBuffer(int size) {
-		this.data = new ArrayDeque<>(size);
-		this.size = size;
-		this.putSemaphore = new Semaphore(this.size, true);
-		this.takeSemaphore = new Semaphore(0, true);
+	/**
+	 * Erzeugt einen Puffer mit bestimmter Kapazität.
+	 * 
+	 * @param n
+	 *            Kapazität des Puffers
+	 */
+	public BoundedBuffer(final int n) {
+		this.size = n;
+		queue = new ArrayDeque<>(this.size);
+		putSema = new Semaphore(n);
+		takeSema = new Semaphore(0);
 	}
 
-	public void put(final T element) throws InterruptedException {
-		putSemaphore.acquire();
-		synchronized (data) {
-			data.addFirst(element);
-			LOG.info("Put: " + element);
+	/**
+	 * Fügt ein Element in den Puffer ein, wenn dies möglich ist, wenn nicht muss
+	 * der Schreiber warten.
+	 * 
+	 * @param elem
+	 *            Element zum Einfügen.
+	 * @throws InterruptedException
+	 *             falls das Warten unterbrochen wird.
+	 */
+	public void put(final T elem) throws InterruptedException {
+		putSema.acquire();
+		synchronized (queue) {
+			queue.addFirst(elem);
 		}
-		takeSemaphore.release();
+		takeSema.release();
 	}
 
+	/**
+	 * Liest und entfernt ein Element aus dem Puffer, wenn dies möglich ist, wenn
+	 * nicht muss der Leser warten.
+	 * 
+	 * @return gelesenes Element.
+	 * @throws InterruptedException
+	 *             falls das Warten unterbrochen wird.
+	 */
 	public T get() throws InterruptedException {
-		takeSemaphore.acquire();
-		T element;
-		synchronized (data) {
-			element = data.removeLast();
-			LOG.info("Got: " + element);
+		takeSema.acquire();
+		T elem;
+		synchronized (queue) {
+			elem = queue.removeLast();
 		}
-		putSemaphore.release();
-		return element;
+		putSema.release();
+		return elem;
 	}
 
-	public boolean empty() {
-		return data.isEmpty();
+	/**
+	 * Boolean, welche true ist, wenn die ArrayDeque leer ist.
+	 * 
+	 * @return true wenn leer, sonst false
+	 */
+	public boolean isEmpty() {
+		return queue.isEmpty();
 	}
 
-	public boolean full() {
-		return data.size() == this.size ? true : false;
+	/**
+	 * Boolean, welche true ist, wenn die ArrayDequ voll ist.
+	 * 
+	 * @return true wenn voll, sonst false
+	 */
+	public boolean isFull() {
+		return this.size == queue.size() ? true : false;
 	}
 
-	public int size() {
-		return data.size();
+	/**
+	 * Gibt die Anzahl Elemente im Bounded-Buffer zurueck.
+	 * 
+	 * @return Anzahl Elemente
+	 */
+	public T size() {
+		return this.size();
 	}
-
 }
