@@ -1,17 +1,17 @@
-package ch.hslu.ad.sw06.N2.Aufg3;
+package ch.hslu.ad.sw08.N3;
 
 import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Producer implements Runnable {
+public class Consumer implements Runnable {
 	private int sum;
 	private final BoundedBuffer<Integer> buffer;
 	private final Random random;
 	private final static Logger LOG = LogManager.getFormatterLogger(Consumer.class);
 
-	public Producer(final BoundedBuffer<Integer> buffer) {
+	public Consumer(final BoundedBuffer<Integer> buffer) {
 		this.buffer = buffer;
 		this.sum = 0;
 		this.random = new Random();
@@ -19,14 +19,13 @@ public class Producer implements Runnable {
 
 	@Override
 	public void run() {
-		for (int i = 0; i < this.random.nextInt(5); i++) { // Fuege eine zufaellige Anzahl an Threads in den Buffer ein
+		while (true) { // Konsumiere solange Elemente, bis der Thread interrupted wird
 			try {
-				final int randomInt = this.random.nextInt(100);
-				buffer.put(randomInt);
-				sum += randomInt;
-
+				final int fromBuffer = buffer.get();
+				sum += fromBuffer;
 			} catch (Exception e) {
 				LOG.error(e);
+				return;
 			}
 		}
 	}
@@ -34,4 +33,5 @@ public class Producer implements Runnable {
 	public Integer getSum() {
 		return this.sum;
 	}
+
 }

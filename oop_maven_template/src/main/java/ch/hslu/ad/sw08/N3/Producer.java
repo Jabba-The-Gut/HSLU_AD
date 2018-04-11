@@ -1,4 +1,4 @@
-package ch.hslu.ad.sw06.N2.Aufg3;
+package ch.hslu.ad.sw08.N3;
 
 import java.util.Random;
 
