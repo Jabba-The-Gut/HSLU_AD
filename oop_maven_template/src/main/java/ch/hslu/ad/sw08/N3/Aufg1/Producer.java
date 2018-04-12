@@ -1,11 +1,12 @@
-package ch.hslu.ad.sw08.N3;
+package ch.hslu.ad.sw08.N3.Aufg1;
 
 import java.util.Random;
+import java.util.concurrent.Callable;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Producer implements Runnable {
+public class Producer implements Callable<Integer> {
 	private int sum;
 	private final BoundedBuffer<Integer> buffer;
 	private final Random random;
@@ -17,8 +18,12 @@ public class Producer implements Runnable {
 		this.random = new Random();
 	}
 
+	public Integer getSum() {
+		return this.sum;
+	}
+
 	@Override
-	public void run() {
+	public Integer call() throws Exception {
 		for (int i = 0; i < this.random.nextInt(5); i++) { // Fuege eine zufaellige Anzahl an Threads in den Buffer ein
 			try {
 				final int randomInt = this.random.nextInt(100);
@@ -29,9 +34,7 @@ public class Producer implements Runnable {
 				LOG.error(e);
 			}
 		}
-	}
-
-	public Integer getSum() {
-		return this.sum;
+		// TODO Auto-generated method stub
+		return getSum();
 	}
 }

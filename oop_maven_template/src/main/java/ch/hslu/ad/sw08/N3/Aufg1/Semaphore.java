@@ -1,4 +1,4 @@
-package ch.hslu.ad.sw08.N3;
+package ch.hslu.ad.sw08.N3.Aufg1;
 
 /**
  * Einfache Implementation eines Semaphores.

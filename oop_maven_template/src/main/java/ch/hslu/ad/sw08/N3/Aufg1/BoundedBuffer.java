@@ -1,6 +1,8 @@
-package ch.hslu.ad.sw08.N3;
+package ch.hslu.ad.sw08.N3.Aufg1;
 
 import java.util.ArrayDeque;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,13 +19,13 @@ public class BoundedBuffer<T> {
 	private final int size;
 	private final Semaphore putSemaphore; // Semaphore fuer das Einfuegen von Elementen
 	private final Semaphore takeSemaphore; // Semaphore fuer das Entfernen von Elementen
-	private ArrayDeque<T> queue; // Datenstruktur fuer BoundedBuffer
+	private BlockingQueue<T> queue; // Datenstruktur fuer BoundedBuffer
 	private final Logger LOG = LogManager.getLogger(BoundedBuffer.class);
 
 	public BoundedBuffer(final int sizeOfBoundedBuffer) {
 		this.size = sizeOfBoundedBuffer;
-		this.queue = new ArrayDeque<>(sizeOfBoundedBuffer);
-		this.putSemaphore = new Semaphore(sizeOfBoundedBuffer);
+		this.queue = new ArrayBlockingQueue<>(sizeOfBoundedBuffer);
+		putSemaphore = new Semaphore(sizeOfBoundedBuffer);
 		this.takeSemaphore = new Semaphore(0);
 	}
 
@@ -37,7 +39,7 @@ public class BoundedBuffer<T> {
 	public void put(final T element) throws InterruptedException {
 		putSemaphore.aquire();
 		synchronized (queue) {
-			queue.offerFirst(element);
+			queue.offer(element);
 			LOG.info("Put: " + element);
 		}
 		takeSemaphore.release();
@@ -56,7 +58,7 @@ public class BoundedBuffer<T> {
 	public void put(final T element, final long milisec) throws InterruptedException {
 		putSemaphore.aquire(milisec);
 		synchronized (queue) {
-			queue.offerFirst(element);
+			queue.offer(element);
 		}
 		takeSemaphore.release();
 	}
@@ -71,7 +73,7 @@ public class BoundedBuffer<T> {
 		takeSemaphore.aquire();
 		final T element;
 		synchronized (queue) {
-			element = queue.removeLast();
+			element = queue.poll();
 			LOG.info("Got: " + element);
 		}
 		putSemaphore.release();
@@ -91,7 +93,7 @@ public class BoundedBuffer<T> {
 		takeSemaphore.aquire(milisec);
 		final T element;
 		synchronized (queue) {
-			element = queue.removeLast();
+			element = queue.poll();
 		}
 		putSemaphore.release();
 		return element;
