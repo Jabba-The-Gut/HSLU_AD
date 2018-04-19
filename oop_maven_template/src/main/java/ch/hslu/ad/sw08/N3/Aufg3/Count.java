@@ -1,5 +1,10 @@
 package ch.hslu.ad.sw08.N3.Aufg3;
 
+/**
+ * Interface for Counter-Methods
+ * @author Dave
+ *
+ */
 public interface Count {
 
 	public void increment();
@@ -8,6 +13,6 @@ public interface Count {
 
 	public int getCount();
 	
-	public long getTime();
+	public int getcorrectCounterValue();
 
 }

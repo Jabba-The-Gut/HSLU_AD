@@ -5,31 +5,44 @@ import java.util.concurrent.Callable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class CountingTask implements Callable<Boolean> {
+/**
+ * Task that executes a specified amount of Increments and Decrements on a
+ * counter-Object and measures the time needed for these operations
+ * 
+ * @author Dave
+ *
+ */
+public class CountingTask implements Callable<Long> {
 	private static final Logger LOG = LogManager.getLogger(CountingTask.class);
 	private final Count counter;
-	final int limit;
+	private final int nbrOfIncr;
+	private final int nbrOfDec;
 
-	public CountingTask(final int limit, Count counter) {
+	public CountingTask(final int nmbrOfIncr, final int nbrOfDec, Count counter) {
 		this.counter = counter;
-		this.limit = limit;
+		this.nbrOfIncr = nmbrOfIncr;
+		this.nbrOfDec = nbrOfDec;
 	}
 
 	@Override
-	public Boolean call() throws Exception {
+	public Long call() throws Exception {
+		long start = 0;
+		long finish = 0;
 		try {
-			while (counter.getCount() < limit) {
+			start = System.currentTimeMillis();
+			for (int i = 0; i < nbrOfIncr; i++) {
 				counter.increment();
 			}
-			while (counter.getCount() != 0) {
+			for (int i = 0; i < nbrOfDec; i++) {
 				counter.decrement();
 			}
-			return true;
+			finish = System.currentTimeMillis();
 
 		} catch (Exception e) {
 			LOG.error(e);
-		} 
-		return false;
+		}
+
+		return (finish - start);
 	}
 
 }
