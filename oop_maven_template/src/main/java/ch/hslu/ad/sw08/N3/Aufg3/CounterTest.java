@@ -43,7 +43,7 @@ public class CounterTest {
 					.submit(new CountingTask(numberOfIncAndDec, numberOfIncAndDec, synchronizedCounter)));
 		}
 
-		// get time from alle threads accessing the AtomicCounter (blocking)
+		// get time from all threads accessing the AtomicCounter (blocking)
 		for (Future<Long> future : boolAtomic) {
 			timeElapsedAtomic += future.get();
 		}
