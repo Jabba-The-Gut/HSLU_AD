@@ -12,7 +12,5 @@ public interface Count {
 	public void decrement();
 
 	public int getCount();
-	
-	public int getcorrectCounterValue();
 
 }
