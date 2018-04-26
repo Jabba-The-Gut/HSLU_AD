@@ -1,4 +1,4 @@
-package ch.hslu.ad.sw09.Aufg4;
+package ch.hslu.ad.sw09.Aufg456;
 
 /**
  * Bibliotheks-Klasse, welche versch. Sorier-Funktionen zur Verfügung stellt
@@ -57,7 +57,23 @@ public class Sort {
 			}
 			Sort.swap(a, i, lowestValue);
 		}
+	}
 
+	/**
+	 * Sortiert das int-Array aufsteigen, mit Bubble-Sort
+	 * 
+	 * @param a
+	 */
+	public static void bubbleSort(final int[] a) {
+		for (int j = 0; j < a.length; j++) {
+			for (int i = 0; i < a.length; i++) {
+				if (i != a.length - 1) {
+					if (a[i] > a[i + 1]) {
+						Sort.swap(a, i, i + 1);
+					}
+				}
+			}
+		}
 	}
 
 }
