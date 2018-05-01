@@ -1,5 +1,7 @@
 package ch.hslu.ad.sw10.Aufg2;
 
+import java.util.Random;
+
 /**
  * Bibliotheks-Klasse, welche versch. Sorier-Funktionen zur Verfügung stellt
  * 
@@ -15,10 +17,36 @@ public class Sort {
 	 * @param i
 	 * @param j
 	 */
-	private static void swap(int[] element, int i, int j) {
+	private static final void swap(int[] element, int i, int j) {
 		int temp = element[i];
 		element[i] = element[j];
 		element[j] = temp;
+	}
+
+	/**
+	 * Vertauscht zwei bestimmte Zeichen im Array.
+	 *
+	 * @param a
+	 *            Zeichen‐Array
+	 * @param firstIndex
+	 *            Index des ersten Zeichens
+	 * @param secondIndex
+	 *            Index des zweiten Zeichens
+	 */
+	private static final void exchange(final char[] a, final int firstIndex, final int secondIndex) {
+		char tmp;
+		tmp = a[firstIndex];
+		a[firstIndex] = a[secondIndex];
+		a[secondIndex] = tmp;
+	}
+
+	public static char[] randomChars(final int lenght) {
+		final char[] a = new char[lenght];
+		for (int i = 0; i < lenght; i++) {
+			Random r = new Random();
+			a[i] = (char) (r.nextInt(26) + 'a');
+		}
+		return a;
 	}
 
 	/**
@@ -90,36 +118,79 @@ public class Sort {
 	}
 
 	/**
-	 * Sortiert ein char-Array aufsteigend, mit QuickSort
+	 * Sortier das char-Array aufsteigend
+	 * 
 	 * @param a
+	 *            char array
 	 * @param left
+	 *            index des ersten Elements
 	 * @param right
+	 *            index des letzten Elements
 	 */
 	public static final void quickSort(final char[] a, final int left, final int right) {
-		int up = left;
-		int down = right - 1;
-		char t = a[right];
+		int up = left; // linke Grenze
+		int down = right - 1; // rechte Grenze (ohne Trennelement)
+		char t = a[right]; // rechtes Element als Trennelement
 		boolean allChecked = false;
 		do {
 			while (a[up] < t) {
-				up++;
+				up++; // suche grösseres (>=) Element von links an
 			}
 			while ((a[down] >= t) && (down > up)) {
-				down--;
+				down--; // suche echt kleineres(<) Element von rechts an
 			}
-			if (down > up) {
-				swap(a, up, down);
+			if (down > up) { // solange keine Überschneidung
+				exchange(a, up, down);
 				up++;
-				down--;
+				down--; // linke und rechte Grenze verschieben
 			} else {
-				allChecked = true;
+				allChecked = true; // Austauschen beendet
 			}
 		} while (!allChecked);
-		swap(a, up, right);
+		exchange(a, up, right); // Trennelement an endgültige Position (a[up])
 		if (left < (up - 1))
-			quickSort(a, left, (up - 1));
+			quickSort(a, left, (up - 1)); // linke Hälfte
 		if ((up + 1) < right)
-			quickSort(a, (up + 1), right);
+			quickSort(a, (up + 1), right); // rechte Hälfte, ohne T’Elt.
+	}
+
+	/**
+	 * Sortier das char-Array aufsteigend
+	 * 
+	 * @param a
+	 *            char array
+	 * @param left
+	 *            index des ersten Elements
+	 * @param right
+	 *            index des letzten Elements
+	 */
+	public static final void quickSort(final char[] a) {
+		final int left = 0;
+		final int right = a.length - 1;
+		int up = left; // linke Grenze
+		int down = right - 1; // rechte Grenze (ohne Trennelement)
+		char t = a[right]; // rechtes Element als Trennelement
+		boolean allChecked = false;
+		do {
+			while (a[up] < t) {
+				up++; // suche grösseres (>=) Element von links an
+			}
+			while ((a[down] >= t) && (down > up)) {
+				down--; // suche echt kleineres(<) Element von rechts an
+			}
+			if (down > up) { // solange keine Überschneidung
+				exchange(a, up, down);
+				up++;
+				down--; // linke und rechte Grenze verschieben
+			} else {
+				allChecked = true; // Austauschen beendet
+			}
+		} while (!allChecked);
+		exchange(a, up, right); // Trennelement an endgültige Position (a[up])
+		if (left < (up - 1))
+			quickSort(a, left, (up - 1)); // linke Hälfte
+		if ((up + 1) < right)
+			quickSort(a, (up + 1), right); // rechte Hälfte, ohne T’Elt.
 	}
 
 }
