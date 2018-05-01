@@ -30,11 +30,10 @@ public class SortTest {
 		Sort.quickSort(unsorted);
 		Assert.assertArrayEquals(new char[] { 'a', 'b', 'c', 'd', 'x', 'z' }, unsorted);
 	}
-	
+
 	@Test
 	public void testrandomChars() throws Exception {
 		char[] test = Sort.randomChars(200);
-		LOG.info(test);
+		Assert.assertTrue(test.length == 200);
 	}
-
 }
