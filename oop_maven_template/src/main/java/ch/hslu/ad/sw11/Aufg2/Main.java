@@ -27,17 +27,17 @@ public class Main {
 		final long finish1 = System.currentTimeMillis();
 		LOG.info("ParallelQuickSort fertig, Dauer: " + (finish1 - start1));
 
-		// Normaler QuickInsertionSort
+		// Normaler QuickSort
 		final char[] cde = new char[200000];
 
 		LOG.info("Array wird zufällig befüllt...");
 		RandomInitTask task2 = new RandomInitTask(cde);
 		pool.invoke(task2);
-		LOG.info("QuickInsertionSort beginnt...");
+		LOG.info("QuickSort beginnt...");
 		final long start2 = System.currentTimeMillis();
-		Sort.quickInsertionSort(abc, 25000);
+		Sort.quickSort(cde);
 		final long finish2 = System.currentTimeMillis();
-		LOG.info("QuickInsertionSort fertig, Dauer: " + (finish2 - start2));
+		LOG.info("QuickSort fertig, Dauer: " + (finish2 - start2));
 
 		// Arrays.sort()-Methode
 		final char[] efg = new char[200000];

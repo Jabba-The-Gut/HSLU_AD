@@ -18,8 +18,9 @@ public class Main {
 		LOG.info("Quicksort mit " + sizeOfArray + " Elementen und Schwellenwert(" + TRESHOLD + ")" + ": "
 				+ (finish - start) + " ms");
 
+		char[] b = Sort.randomChars(sizeOfArray);
 		long start2 = System.currentTimeMillis();
-		Sort.quickSort(a);
+		Sort.quickSort(b);
 		long finish2 = System.currentTimeMillis();
 
 		LOG.info("Quicksort mit " + sizeOfArray + " Elementen: " + (finish2 - start2) + " ms");
