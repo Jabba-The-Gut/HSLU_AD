@@ -244,6 +244,9 @@ public class Sort {
 			}
 		} while (!allChecked);
 		exchange(a, up, right); // Trennelement an endgültige Position (a[up])
+
+		// Hier ist noch ein Fehler drin. Ich sollte in der Else-condition wieder
+		// QuickInsertionSort aufrufen!!
 		if ((left - (up - 1)) == TRESHOLD) {
 			Sort.insertionSort(a);
 		} else {
