@@ -40,6 +40,6 @@ public class FixedSizeHeap {
 	}
 
 	public FixedSizeHeap(final int[] array) {
-		for (int i = )
+	
 	}
 }
