@@ -5,6 +5,8 @@ import java.util.concurrent.ForkJoinPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import ch.hslu.ad.sw01.E1.FibonacciNumbers;
+
 public class Main {
 	private static Logger LOG = LogManager.getLogger(Main.class);
 
@@ -19,9 +21,20 @@ public class Main {
 		long finish1 = System.currentTimeMillis();
 		LOG.info("Parallele Fibonacci-Berechnung Fork-Join: " + (finish1 - start1) + "ms, Zahl: "
 				+ resultParallelForkJoin);
-		
-		// TODO weiter vergleichen mit dem Rest
 
+		// Rekursive Berechnung
+		LOG.info("Rekursive Fibonacci-Berechnung beginnt...");
+		long start2 = System.currentTimeMillis();
+		int resultRecursive = FibonacciNumbers.fiboRec1(20);
+		long finish2 = System.currentTimeMillis();
+		LOG.info("Rekursive Fibonacci-Berechnung: " + (finish2 - start2) + "ms, Zahl: " + resultRecursive);
+
+		// Iterative Berechnung
+		LOG.info("Iterative Fibonacci-Berechnung beginnt...");
+		long start3 = System.currentTimeMillis();
+		int resultIterative = FibonacciNumbers.fiboIter(21);
+		long finish3 = System.currentTimeMillis();
+		LOG.info("Iterative Fibonacci-Berechnung: " + (finish3 - start3) + "ms, Zahl: " + resultIterative);
 	}
 
 }
