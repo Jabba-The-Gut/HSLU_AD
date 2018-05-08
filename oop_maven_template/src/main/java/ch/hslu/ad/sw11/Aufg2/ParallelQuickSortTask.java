@@ -47,13 +47,13 @@ public class ParallelQuickSortTask extends RecursiveAction {
 		if ((left - (up - 1)) < 25000) {
 			Arrays.sort(a);
 		} else {
-			new ParallelQuickSortTask(a, left, (up - 1)); // linke Hälfte
+			new ParallelQuickSortTask(a, left, (up - 1)).fork(); // linke Hälfte
 		}
 		if (((up + 1) - right) < 25000) {
 			Arrays.sort(a);
 		} else {
 			if ((up + 1) < right)
-				new ParallelQuickSortTask(a, left, (up - 1)); // linke Hälfte
+				new ParallelQuickSortTask(a, left, (up - 1)).fork(); // linke Hälfte
 		}
 
 	}
