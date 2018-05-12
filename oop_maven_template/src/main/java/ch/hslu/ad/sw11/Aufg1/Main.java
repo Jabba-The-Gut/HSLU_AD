@@ -1,6 +1,5 @@
 package ch.hslu.ad.sw11.Aufg1;
 
-import java.util.Arrays;
 import java.util.concurrent.ForkJoinPool;
 
 import org.apache.logging.log4j.LogManager;
